@@ -1,12 +1,28 @@
-const request = require('request');
+const yargs = require('yargs');
 
-request(
-  {
-    url:
-      "https://maps.googleapis.com/maps/api/geocode/json?address=1301%20lombard%20st&key=AIzaSyC4CKnO0SgpxZTR0k9ZkwTM6ea6Aob9AIY",
-    json: true
-  },
-  (error, response, body) => {
-    console.log(body);
+const geocode = require('./geocode/geocode');
+
+const argv = yargs
+  .options({
+    address:({
+      alias: 'a',
+      demand: true,
+      describe: "Address to fetch weather for",
+      string: true
+    })
+  })
+  .help()
+  .alias('help', 'h')
+  .argv;
+
+require('dotenv').config()
+KEY = process.env.GEO_KEY;
+
+geocode.geocodeAddress(argv.address, (errorMessage, results)=>{
+  if (errorMessage){
+    console.log(errorMessage);
   }
-);
+  else {
+    console.log(JSON.stringify(results, undefined, 2));
+  }
+});
