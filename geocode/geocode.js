@@ -1,7 +1,7 @@
 
 const request = require('request');
 KEY = process.env.GEO_KEY;
-
+require("dotenv").config();
 const encodeAddress = (address) => encodeURIComponent(address);
 
 const getRequest = (encodedAddress, callback) => {
