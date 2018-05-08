@@ -1,5 +1,4 @@
 const request = require("request");
-require("dotenv").config();
 DARKSKY_KEY = process.env.DARKSKY_KEY;
 
 let getWeather = (lat, lng, callback)=> {
